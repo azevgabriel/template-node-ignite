@@ -10,6 +10,13 @@ class CarsRepository implements ICarsRepository {
     this.repository = getRepository(Car);
   }
 
+  async udpateAvailable(id: string, available: boolean): Promise<Car> {
+    const car = await this.repository.findOne(id);
+    car.available = available;
+    await this.repository.save(car);
+    return car;
+  }
+
   async create({
     name,
     description,
